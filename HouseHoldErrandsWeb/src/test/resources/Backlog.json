@@ -1,0 +1,20 @@
+{
+  "itemsList": [
+    {
+      "itemName": "L",
+      "itemId": 1
+    },
+    {
+      "itemName": "L",
+      "itemId": 2
+    },
+    {
+      "itemName": "H",
+      "itemId": 3
+    },
+    {
+      "itemName": "T",
+      "itemId": 4
+    }
+  ]
+}
