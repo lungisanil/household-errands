@@ -20,4 +20,8 @@ public class TeamTranslator {
                 .collect(Collectors.toList()));
     }
 
+    public static co.za.lungisani.persistance.model.Item getItemEntity(Item item){
+        return new co.za.lungisani.persistance.model.Item().setItemName(item.getItemName());
+    }
+
 }

@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -27,28 +27,28 @@ class ItemServiceImplTest {
     @Test
     public void testThatAnArtistIsRetrievedSuccessful() {
         Item stubbedItem = new Item()
-                .setItemId(1)
+                .setItemId(1L)
                 .setItemName("T");
 
         //Stubbing a backlog repository behavior
-        when(this.backlogRepository.findByItemId(1)).thenReturn(stubbedItem);
+        when(this.backlogRepository.findByItemId(1L)).thenReturn(stubbedItem);
 
         //making a service call to get an item for the itemId in question
-        Item item = this.teamServiceImpl.retrieve(1);
-        verify(this.backlogRepository, times(1)).findByItemId(anyInt());
+        Item item = this.teamServiceImpl.retrieve(1L);
+        verify(this.backlogRepository, times(1)).findByItemId(anyLong());
         assertEquals(stubbedItem, item);
     }
 
     @Test
     public void testThatExceptionIsThrownWhenMemberIsNotFound() {
         //Stubbing a backlog repository behavior
-        when(this.backlogRepository.findByItemId(1)).thenReturn(null);
+        when(this.backlogRepository.findByItemId(1L)).thenReturn(null);
 
         try {
             //making a service call to get an item for the itemId in question
-            this.teamServiceImpl.retrieve(1);
+            this.teamServiceImpl.retrieve(1L);
         } catch (Exception ex) {
-            verify(this.backlogRepository, times(1)).findByItemId(anyInt());
+            verify(this.backlogRepository, times(1)).findByItemId(anyLong());
             assertEquals(NotFoundException.class, ex.getClass());
         }
     }

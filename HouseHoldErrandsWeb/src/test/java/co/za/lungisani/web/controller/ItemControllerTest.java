@@ -14,7 +14,7 @@ import static co.za.lungisani.web.constants.TestConstants.BACKLOG_FILE_PATH;
 import static co.za.lungisani.web.util.MockServiceResponse.mockServiceResponse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -32,11 +32,11 @@ class ItemControllerTest {
     public void testThatAnItemIsRetrievedSuccessfully() throws Exception {
         co.za.lungisani.persistance.model.Item item = mockServiceResponse(ITEM_FILE_PATH, co.za.lungisani.persistance.model.Item.class);
 
-        when(this.backlogService.retrieve(4)).thenReturn(item);
+        when(this.backlogService.retrieve(4L)).thenReturn(item);
 
-        Item itemResponse = this.backlogController.getItem(4).getBody();
+        Item itemResponse = this.backlogController.getItem(4L).getBody();
 
-        verify(this.backlogService, times(1)).retrieve(anyInt());
+        verify(this.backlogService, times(1)).retrieve(anyLong());
         assertNotNull(itemResponse);
         assertEquals(item.getItemName(), itemResponse.getItemName());
     }

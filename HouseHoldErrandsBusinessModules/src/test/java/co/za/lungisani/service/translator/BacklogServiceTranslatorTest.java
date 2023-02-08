@@ -2,6 +2,7 @@ package co.za.lungisani.service.translator;
 
 import co.za.lungisani.persistance.model.Item;
 import co.za.lungisani.persistance.model.Backlog;
+import co.za.lungisani.translator.TeamServiceTranslator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -16,8 +17,8 @@ class BacklogServiceTranslatorTest {
 
     @Test
     void getTeam() {
-        Item itemOne = new Item().setItemId(1).setItemName("item1");
-        Item itemTwo = new Item().setItemId(2).setItemName("item2");
+        Item itemOne = new Item().setItemId(1L).setItemName("item1");
+        Item itemTwo = new Item().setItemId(2L).setItemName("item2");
 
         List<Item> itemsList = Arrays.asList(itemOne, itemTwo);
 

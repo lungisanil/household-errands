@@ -1,6 +1,7 @@
 package co.za.lungisani.web.controller;
 
 import co.za.lungisani.domain.model.Item;
+import co.za.lungisani.domain.model.SuccessResponse;
 import co.za.lungisani.persistance.model.Backlog;
 import co.za.lungisani.web.constants.HttpConstants;
 import co.za.lungisani.domain.model.ErrorResponse;
@@ -18,11 +19,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @Tag(name = "Backlog-Controller", description = "Backlog Controller")
@@ -49,11 +46,11 @@ public class BacklogController {
     })
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/item/{itemId}")
-    public ResponseEntity<Item> getItem(@PathVariable Integer itemId) {
+    public ResponseEntity<Item> getItem(@PathVariable Long itemId) {
         co.za.lungisani.persistance.model.Item itemEntity = this.backlogService.retrieve(itemId);
         Item item = TeamTranslator.getItemResponse(itemEntity);
 
-        return ResponseEntity.ok().body(item);
+        return ResponseEntity.status(HttpStatus.OK).body(item);
     }
 
 
@@ -73,7 +70,47 @@ public class BacklogController {
         Backlog itemsList = this.backlogService.retrieveAll();
         co.za.lungisani.domain.model.Backlog backlog = TeamTranslator.getBacklog(itemsList);
 
-        return ResponseEntity.ok().body(backlog);
+        return ResponseEntity.status(HttpStatus.OK).body(backlog);
+    }
+
+
+    @Operation(
+            summary = "Remove an item"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Successfully removed an item", content = @Content(mediaType = "application/json",
+                    array = @ArraySchema(schema = @Schema(implementation = SuccessResponse.class)))),
+            @ApiResponse(responseCode = "404", description = "Item not found", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json",
+                    array = @ArraySchema(schema = @Schema(implementation = ErrorResponse.class))))
+    })
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/item/{itemId}")
+    public ResponseEntity<SuccessResponse> removeItem(@PathVariable Long itemId) {
+        this.backlogService.remove(itemId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new SuccessResponse());
+    }
+
+
+    @Operation(
+            summary = "Add an item"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully added an item", content = @Content(mediaType = "application/json",
+                    array = @ArraySchema(schema = @Schema(implementation = Item.class)))),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json",
+                    array = @ArraySchema(schema = @Schema(implementation = ErrorResponse.class))))
+    })
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/item")
+    public ResponseEntity<Item> addItem(@RequestBody Item item) {
+
+        co.za.lungisani.persistance.model.Item itemEntity = TeamTranslator.getItemEntity(item);
+        co.za.lungisani.persistance.model.Item savedItemEntity = this.backlogService.add(itemEntity);
+
+        Item savedItem = TeamTranslator.getItemResponse(savedItemEntity);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedItem);
     }
 
 }

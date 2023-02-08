@@ -5,6 +5,6 @@ import co.za.lungisani.persistance.model.Item;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface BacklogService extends GenericService<Item, Integer, Backlog> {
+public interface BacklogService extends GenericService<Item, Long, Backlog> {
 
 }

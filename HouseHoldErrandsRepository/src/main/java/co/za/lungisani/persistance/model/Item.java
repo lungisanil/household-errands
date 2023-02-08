@@ -12,18 +12,18 @@ import javax.persistence.Table;
 public class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ITEM_ID", updatable = false, nullable = false)
-    private Integer itemId;
+    private Long itemId;
 
     @Column(name = "ITEM_NAME", nullable = false)
     private String itemName;
 
-    public Integer getItemId() {
+    public Long getItemId() {
         return itemId;
     }
 
-    public Item setItemId(Integer itemId) {
+    public Item setItemId(Long itemId) {
         this.itemId = itemId;
         return this;
     }

@@ -1,4 +1,4 @@
-package co.za.lungisani.service.translator;
+package co.za.lungisani.translator;
 
 import co.za.lungisani.persistance.model.Item;
 import co.za.lungisani.persistance.model.Backlog;
