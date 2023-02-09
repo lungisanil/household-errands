@@ -28,7 +28,7 @@ public class SwaggerConfiguration {
     }
 
     @Bean
-    public OpenAPI houseHoldMusicAPI() {
+    public OpenAPI houseHoldAPI() {
         return new OpenAPI()
                 .info(new Info().title("HouseHold Service API")
                         .description(applicationDescription)
