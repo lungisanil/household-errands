@@ -12,12 +12,27 @@ public class Item {
     )
     private String itemName;
 
+    @Schema(
+            title = "The Id representing an item",
+            example = "1"
+    )
+    private Long itemId;
+
     public String getItemName() {
         return itemName;
     }
 
     public Item setItemName(String itemName) {
         this.itemName = itemName;
+        return this;
+    }
+
+    public Long getItemId() {
+        return itemId;
+    }
+
+    public Item setItemId(Long itemId) {
+        this.itemId = itemId;
         return this;
     }
 
