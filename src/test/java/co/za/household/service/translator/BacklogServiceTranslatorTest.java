@@ -1,0 +1,30 @@
+package co.za.household.service.translator;
+
+import co.za.household.persistance.model.Item;
+import co.za.household.persistance.model.Backlog;
+import co.za.household.translator.BacklogTranslator;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+@ExtendWith(MockitoExtension.class)
+class BacklogServiceTranslatorTest {
+
+    @Test
+    void getTeam() {
+        Item itemOne = new Item().setItemId(1L).setItemName("item1");
+        Item itemTwo = new Item().setItemId(2L).setItemName("item2");
+
+        List<Item> itemsList = Arrays.asList(itemOne, itemTwo);
+
+        Backlog backlogListResponse = BacklogTranslator.getBacklog(itemsList);
+
+        assertNotNull(backlogListResponse);
+    }
+
+}
