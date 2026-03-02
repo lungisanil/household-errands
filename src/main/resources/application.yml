@@ -8,8 +8,8 @@ spring:
   datasource:
     url: jdbc:h2:mem:household-db
     driver-class-name: org.h2.Driver
-    username: household
-    password: household
+    username: {H_USERNAME}
+    password: {H_PASSWORD}
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
@@ -32,5 +32,5 @@ swagger:
     version: "1.0.0-SNAPSHOT"
 
 jwt:
-  secret: "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"
+  secret: {JWT_SECRET}
   expiration-ms: 3600000
